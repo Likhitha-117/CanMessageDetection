@@ -127,7 +127,7 @@ async def upload_dataset(
             attack_distribution[label_name] += 1
 
         attack_logs.append({
-            "timestamp": float(row["timestamp"]),
+            "timestamp": float(row["timestamp"]) if str(row["timestamp"]).replace('.', '', 1).isdigit() else datetime.fromisoformat(str(row["timestamp"])).replace(tzinfo=timezone.utc).timestamp(),
             "can_id": str(int(row["can_id"])),
             "payload": payload_hex,
             "predicted_label": int(class_idx),

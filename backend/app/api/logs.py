@@ -1,7 +1,7 @@
 """
 Log ingestion endpoint.
 Receives CAN log data from vehicle simulators,
-buffers features, runs LSTM inference, and stores results.
+buffers features, runs BiLSTM inference, and stores results.
 """
 from datetime import datetime, timezone
 

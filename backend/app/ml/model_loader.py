@@ -6,12 +6,13 @@ from pathlib import Path
 
 # Paths
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
-MODEL_DIR = BASE_DIR / "LSTM"
+MODEL_DIR = BASE_DIR / "bilstm"
+LSTM_DIR = BASE_DIR / "LSTM"
 
 # Artifacts
-MODEL_PATH = MODEL_DIR / "lstm.h5"
-SCALER_PATH = MODEL_DIR / "lstm_minmax_scaler.pkl"
-LABELS_PATH = MODEL_DIR / "class_labels_lstm.npy"
+MODEL_PATH = MODEL_DIR / "bilstm.h5"
+SCALER_PATH = LSTM_DIR / "lstm_minmax_scaler.pkl"
+LABELS_PATH = LSTM_DIR / "class_labels_lstm.npy"
 
 # Global objects
 model = None
@@ -35,9 +36,9 @@ def load_all():
     validate_artifacts()
     
     try:
-        print(f"🔄 Loading LSTM model from {MODEL_PATH}...")
+        print(f"🔄 Loading BiLSTM model from {MODEL_PATH}...")
         model = tf.keras.models.load_model(str(MODEL_PATH))
-        print("✅ LSTM model loaded successfully")
+        print("✅ BiLSTM model loaded successfully")
         
         print(f"🔄 Loading scaler from {SCALER_PATH}...")
         scaler = joblib.load(str(SCALER_PATH))

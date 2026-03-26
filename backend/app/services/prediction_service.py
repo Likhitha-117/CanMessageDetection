@@ -39,7 +39,7 @@ class IntrusionDetector:
         buf = self._get_buffer(vehicle_id)
         # Sequence shape should be (1, sequence_length, feature_count)
         sequence = np.array(list(buf), dtype=np.float32)
-        sequence = np.expand_dims(sequence, axis=0) # (1, 20, 10)
+        sequence = np.expand_dims(sequence, axis=0) # (1, 10, 10)
         
         # Predict
         preds = model_loader.model.predict(sequence, verbose=0)

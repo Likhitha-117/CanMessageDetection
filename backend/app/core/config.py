@@ -16,7 +16,7 @@ class Settings(BaseSettings):
 
     # Model
     MODEL_PATH: str = "log_model/lstm_model.pth"
-    SEQ_LENGTH: int = 20
+    SEQ_LENGTH: int = 10
     FEATURE_COUNT: int = 10
 
     class Config:
