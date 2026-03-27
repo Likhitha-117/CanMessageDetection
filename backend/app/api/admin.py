@@ -120,6 +120,7 @@ async def all_logs(
         query["vehicle_id"] = vehicle_id
     
     projection = {
+        "data": 0,
         "payload": 0,
         "extractedFeatures": 0,
         "features": 0, # Legacy

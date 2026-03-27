@@ -53,7 +53,7 @@ export default function Register() {
                 <form onSubmit={handleSubmit}>
                     {/* Role Selector Tabs */}
                     <div style={{ display: 'flex', gap: 10, marginBottom: 24, background: 'rgba(255,255,255,0.03)', padding: 6, borderRadius: 12, border: '1px solid var(--border)' }}>
-                        {['owner', 'engineer'].map((r) => (
+                        {['owner', 'engineer', 'admin'].map((r) => (
                             <button
                                 key={r}
                                 type="button"
