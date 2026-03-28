@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../api';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -17,6 +17,13 @@ export default function Register() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [adminExists, setAdminExists] = useState(false);
+
+    useEffect(() => {
+        api.get('/auth/admin-exists')
+            .then(res => setAdminExists(res.data.exists))
+            .catch(err => console.error("Error checking admin status:", err));
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,7 +47,7 @@ export default function Register() {
                         <ShieldIcon />
                     </div>
                     <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: 8 }}>
-                        Register 
+                        Register
                     </h1>
                     <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                         Select your platform role to continue
@@ -53,7 +60,7 @@ export default function Register() {
                 <form onSubmit={handleSubmit}>
                     {/* Role Selector Tabs */}
                     <div style={{ display: 'flex', gap: 10, marginBottom: 24, background: 'rgba(255,255,255,0.03)', padding: 6, borderRadius: 12, border: '1px solid var(--border)' }}>
-                        {['owner', 'engineer', 'admin'].map((r) => (
+                        {['owner', 'engineer', 'admin'].filter(r => r !== 'admin' || !adminExists).map((r) => (
                             <button
                                 key={r}
                                 type="button"

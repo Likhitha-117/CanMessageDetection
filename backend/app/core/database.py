@@ -18,6 +18,12 @@ async def connect_to_mongo():
 
         # Create indexes
         await db.users.create_index("email", unique=True)
+        # Single Admin Constraint
+        await db.users.create_index(
+            [("role", 1)],
+            unique=True,
+            partialFilterExpression={"role": "admin"}
+        )
         await db.vehicles.create_index("vehicle_id", unique=True)
         await db.vehicles.create_index("vehicle_api_key", unique=True)
         await db.logs.create_index("vehicle_id")

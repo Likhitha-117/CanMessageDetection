@@ -20,6 +20,15 @@ async def register(req: RegisterRequest):
     if existing:
         raise HTTPException(status_code=400, detail="Email already registered")
 
+    # Single Admin Enforcement
+    if req.role == "admin":
+        existing_admin = await db.users.find_one({"role": "admin"})
+        if existing_admin:
+            raise HTTPException(
+                status_code=400,
+                detail="Admin already exists. Multiple admin accounts are not allowed."
+            )
+
     user_doc = {
         "full_name": req.full_name,
         "email": req.email,
@@ -61,3 +70,10 @@ async def login(req: LoginRequest):
         role=user["role"],
         full_name=user["full_name"],
     )
+
+
+@router.get("/admin-exists")
+async def check_admin_exists():
+    db = get_db()
+    admin = await db.users.find_one({"role": "admin"})
+    return {"exists": admin is not None}
